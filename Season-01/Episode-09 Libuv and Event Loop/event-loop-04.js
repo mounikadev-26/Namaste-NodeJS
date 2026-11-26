@@ -1,0 +1,26 @@
+const fs = require("fs");
+
+setImmediate(() => console.log("setimmediate"));
+setTimeout(() => console.log("settimeout"));
+Promise.resolve("Promise").then(console.log);
+
+fs.readFile("./file.txt", "utf-8", (err, data) => {
+  console.log("File Reading of CB");
+});
+
+process.nextTick(() => {
+  process.nextTick(() => console.log("inner nexttick"));
+  console.log("process.nexttick");
+});
+
+console.log("last line of program");
+
+// Output
+
+// last line of program
+// process.nexttick
+// inner nexttick
+// Promise
+// settimeout
+// setimmediate
+// File Reading of CB
